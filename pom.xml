@@ -22,6 +22,12 @@
         <module>springboot-netty</module>
         <module>simple-hello-starter</module>
         <module>device-control-server</module>
+        <module>springboot-freemarker</module>
+        <module>springboot-druid</module>
+        <module>springboot-shiro</module>
+        <module>springboot-security</module>
+        <module>springboot-quartz</module>
+        <module>student-grade</module>
     </modules>
 
 
