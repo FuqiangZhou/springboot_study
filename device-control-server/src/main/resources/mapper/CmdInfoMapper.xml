@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhou.devicecontrolserver.mapper.CmdInfoMapper">
+    <resultMap id="CmdInfoMap" type="com.zhou.devicecontrolserver.entity.CmdInfo">
+        <result property="id" column="id"/>
+        <result property="deviceId" column="device_id"/>
+        <result property="devicePort" column="device_port"/>
+        <result property="executeCmd" column="execute_cmd"/>
+        <result property="executeRes" column="execute_res"/>
+        <result property="retryNum" column="retry_num"/>
+        <result property="createTime" column="create_time"/>
+        <result property="resTime" column="res_time"/>
+    </resultMap>
+</mapper>

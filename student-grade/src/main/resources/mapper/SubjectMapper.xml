@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhou.studentgrade.dao.SubjectDAO">
+    <resultMap id="SubjectMap" type="com.zhou.studentgrade.entities.Subject">
+        <id column="sub_id" property="subId"/>
+        <result column="sub_name" property="subName"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        sub_id, sub_name
+    </sql>
+    <insert id="insertSubject" parameterType="com.zhou.studentgrade.entities.Subject">
+        INSERT INTO `subject`(sub_id, sub_name) VALUES(#{subId}, #{subName})
+    </insert>
+    <update id="updateSubject" parameterType="com.zhou.studentgrade.entities.Subject">
+        UPDATE `subject` SET sub_name = #{subName} WHERE sub_id = #{subId}
+    </update>
+    <delete id="deleteSubjectById">
+        DELETE FROM `subject` WHERE sub_id = #{subId}
+    </delete>
+    <select id="selectSubjects" resultMap="SubjectMap">
+        SELECT <include refid="Base_Column_List"/> FROM `subject`
+        <if test="page != null and limit != null">
+            limit #{page}, #{limit}
+        </if>
+    </select>
+    <select id="selectSubjectById" resultMap="SubjectMap">
+        SELECT <include refid="Base_Column_List"/> FROM `subject` WHERE sub_id = #{subId}
+    </select>
+
+
+</mapper>

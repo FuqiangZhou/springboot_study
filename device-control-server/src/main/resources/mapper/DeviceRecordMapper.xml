@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhou.devicecontrolserver.mapper.DeviceRecordMapper">
+    <resultMap id="DeviceInfoMap" type="com.zhou.devicecontrolserver.entity.DeviceRecord">
+        <result property="id" column="id"/>
+        <result property="deviceId" column="device_id"/>
+        <result property="recordType" column="record_type"/>
+        <result property="recordTime" column="record_time"/>
+    </resultMap>
+</mapper>

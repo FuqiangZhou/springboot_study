@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhou.studentgrade.dao.ScoreDAO">
+    <resultMap id="ScoreMap" type="com.zhou.studentgrade.entities.Score">
+        <id column="score_id" property="scoreId"/>
+        <result column="stu_id" property="stuId"/>
+        <result column="sub_id" property="subId"/>
+        <result column="grade" property="grade"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        score_id, stu_id, sub_id, grade
+    </sql>
+    <insert id="insertScore" parameterType="com.zhou.studentgrade.entities.Score">
+        INSERT INTO score(stu_id, sub_id, grade) VALUES(#{stuId}, #{subId}, #{grade})
+    </insert>
+    <update id="updateScoreById">
+        UPDATE score SET stu_id=#{stuId}, sub_id=#{subId}, grade=#{grade} WHERE score_id = #{scoreId}
+    </update>
+    <delete id="deleteScoreById">
+        DELETE FROM score WHERE score_id = #{scoreId}
+    </delete>
+    <select id="selectScores" resultMap="ScoreMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM score
+        <if test="page != null and limit != null">
+            limit #{page}, #{limit}
+        </if>
+    </select>
+    <select id="selectScoresByStuId" resultMap="ScoreMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM score
+        WHERE stu_id = #{stuId}
+        <if test="page != null and limit != null">
+            limit #{page}, #{limit}
+        </if>
+    </select>
+    <select id="selectScoresBySubId" resultMap="ScoreMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM score
+        WHERE sub_id = #{subId}
+        <if test="page != null and limit != null">
+            limit #{page}, #{limit}
+        </if>
+    </select>
+    <select id="selectScoreById" resultMap="ScoreMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM score
+        WHERE score_id = #{scoreId}
+    </select>
+    <select id="selectScore" resultMap="ScoreMap">
+        SELECT <include refid="Base_Column_List"/>
+        FROM score
+        WHERE sub_id = #{subId} AND stu_id = #{stuId}
+    </select>
+
+</mapper>

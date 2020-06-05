@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhou.easyexcel.mapper.UserInfoMapper">
+
+    <resultMap type="com.zhou.easyexcel.entity.UserInfo" id="UserInfoMap">
+        <result property="createTime" column="create_time"/>
+        <result property="hendImgUrl" column="hend_img_url"/>
+        <result property="invitationCode" column="invitation_code"/>
+        <result property="nickname" column="nickname"/>
+        <result property="questionnaireItem" column="questionnaire_item"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="userCode" column="user_code"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="wxOpenId" column="wx_open_id"/>
+        <result property="wxUnionId" column="wx_union_id"/>
+    </resultMap>
+
+
+</mapper>

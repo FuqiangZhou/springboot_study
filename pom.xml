@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.zhou.study</groupId>
+    <artifactId>springboot_study</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <modules>
+        <module>springbootwithmybatisplus</module>
+        <module>springbootwithshiro</module>
+        <module>springboot-redis</module>
+        <module>springboot-mqtt-client</module>
+        <module>springboot-mqtt-server</module>
+        <module>mqtt-device-client</module>
+        <module>mqtt-device-server</module>
+        <module>springboot-websocket</module>
+        <module>easy-excel</module>
+        <module>dynamic-data-source</module>
+        <module>springboot-netty</module>
+        <module>simple-hello-starter</module>
+        <module>device-control-server</module>
+    </modules>
+
+
+</project>

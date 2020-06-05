@@ -1,0 +1,5 @@
+server:
+  port: 28088
+count:
+  uri:
+    enable: true

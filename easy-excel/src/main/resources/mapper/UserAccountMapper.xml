@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhou.easyexcel.mapper.UserAccountMapper">
+
+    <resultMap type="com.zhou.easyexcel.entity.UserAccount" id="UserAccountMap">
+        <result property="accountBalance" column="account_balance"/>
+        <result property="accountCode" column="account_code"/>
+        <result property="accountStatus" column="account_status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="userCode" column="user_code"/>
+    </resultMap>
+
+
+</mapper>

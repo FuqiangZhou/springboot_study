@@ -1,0 +1,29 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://mysql.51quicker.com:3306/device_ctl?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    #    url: jdbc:mysql://192.168.31.200:3306/device_ctl?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    #    url: jdbc:mysql://localhost:3306/device_ctl?characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: quicker
+    #    username: root
+    password: quicker2018@)!*
+    #    password: admin123
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      filters: stat
+      initial-size: 10
+      max-active: 20
+      min-idle: 8
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.zhou.*.entity
+  configuration:
+    cache-enabled: false
+    call-setters-on-nulls: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+server:
+  port: 8090

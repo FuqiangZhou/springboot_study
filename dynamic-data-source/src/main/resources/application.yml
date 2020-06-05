@@ -1,0 +1,24 @@
+spring:
+  datasource:
+    dynamic:
+      datasource:
+        master:
+          url: jdbc:mysql://localhost:3306/db_test?characterEncoding=utf8
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          username: root
+          password: admin123
+          type: com.alibaba.druid.pool.DruidDataSource
+      druid:
+        filters: stat
+        initial-size: 10
+        max-active: 20
+        min-idle: 8
+      primary: db_test
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.zhou.*.entity
+  configuration:
+    cache-enabled: false
+    call-setters-on-nulls: on
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

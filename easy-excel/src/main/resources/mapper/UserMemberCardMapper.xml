@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.zhou.easyexcel.mapper.UserMemberCardMapper">
+
+    <resultMap type="com.zhou.easyexcel.entity.UserMemberCard" id="UserMemberCardMap">
+        <result property="cardType" column="card_type"/>
+        <result property="createTime" column="create_time"/>
+        <result property="status" column="status"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="userCode" column="user_code"/>
+        <result property="userMemberCardCode" column="user_member_card_code"/>
+        <result property="validityPeriod" column="validity_period"/>
+        <result property="isUsed" column="is_used"/>
+        <result property="usedTime" column="used_time"/>
+    </resultMap>
+
+
+</mapper>

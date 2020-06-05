@@ -1,0 +1,12 @@
+mqtt:
+  server:
+#    host: tcp://47.92.83.244:1883
+    host: tcp://39.99.175.189
+#    host: tcp://39.97.246.161:1883
+#    username: classroom
+    username: fengan
+#    username: lxks
+#    password: classroom_2019
+    password: fengan_2019
+#    password: lxks_2019
+    client-id: bee-emqx-server
