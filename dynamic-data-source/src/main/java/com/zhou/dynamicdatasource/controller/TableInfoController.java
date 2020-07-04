@@ -1,12 +1,14 @@
-package com.zhou.springbootfreemarker.controller;
+package com.zhou.dynamicdatasource.controller;
 
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.ZipUtil;
-import com.zhou.springbootfreemarker.entity.JavaClassInfo;
-import com.zhou.springbootfreemarker.entity.JavaColumnInfo;
-import com.zhou.springbootfreemarker.entity.TableInfo;
-import com.zhou.springbootfreemarker.service.TableInfoService;
-import com.zhou.springbootfreemarker.utils.MyFileVisitor;
+import com.zhou.dynamicdatasource.entity.JavaClassInfo;
+import com.zhou.dynamicdatasource.entity.JavaColumnInfo;
+import com.zhou.dynamicdatasource.entity.TableInfo;
+import com.zhou.dynamicdatasource.service.TableInfoService;
+import com.zhou.dynamicdatasource.util.MyFileVisitor;
+import com.zhou.dynamicdatasource.util.PageDataResult;
+import com.zhou.dynamicdatasource.vo.ExportCodeParamVO;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -14,30 +16,33 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.ResourceUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
  * @author 周富强
  * @version 1.0.0
- * @date 2019/12/10 5:23 下午
+ * @date 2020/7/3 2:22 下午
  */
 @RestController
-@RequestMapping("/tableInfo")
+@RequestMapping("/table")
 public class TableInfoController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TableInfoController.class);
+
+    @Resource
+    private TableInfoService tableInfoService;
 
     private static final String BASE_CODE_PATH = "code";
 
@@ -61,16 +66,23 @@ public class TableInfoController {
 
     private static final String IMPL_SUFFIX = "ServiceImpl.java";
 
-    @Resource
-    private TableInfoService tableInfoService;
+    @GetMapping("/listTables")
+    public PageDataResult<Map<String, List<TableInfo>>> listTables(@RequestParam(value = "dataSourceName") String dataSourceName) {
+        List<TableInfo> tableInfos = tableInfoService.showAllTableInfo(dataSourceName);
+        Map<String, List<TableInfo>> tableInfosMap = tableInfos.stream()
+//                    .filter(tableInfo -> "classify".equals(tableInfo.getTableName()) || "commodity".equals(tableInfo.getTableName()) || "commodity_order".equals(tableInfo.getTableName()))
+                .collect(Collectors.groupingBy(TableInfo::getTableName));
+        return new PageDataResult<>(tableInfosMap.keySet().size(), 1, tableInfosMap, "SUCCESS");
+    }
 
-    @GetMapping("/exportCode")
-    public Object exportCode(@RequestParam(value = "packageName") String packageName, HttpServletResponse response){
+    @PostMapping("/exportCode")
+    public Object exportCode(@RequestBody ExportCodeParamVO paramVO, HttpServletResponse response) {
         OutputStream out = null;
         BufferedInputStream in = null;
         File zip = null;
+        String packageName = paramVO.getPackageName();
         try {
-            List<TableInfo> tableInfos = this.tableInfoService.showAllTableInfo();
+            List<TableInfo> tableInfos = this.tableInfoService.showTableInfo(paramVO.getDataSourceName(), paramVO.getTableNames());
             // tableInfo to javaClass
             List<JavaClassInfo> classInfoList = tableToJavaClass(tableInfos);
 
@@ -129,9 +141,10 @@ public class TableInfoController {
         }
     }
 
+
+
     public List<JavaClassInfo> tableToJavaClass(List<TableInfo> tableInfos) {
         Map<String, List<TableInfo>> tableInfosMap = tableInfos.stream()
-//                    .filter(tableInfo -> "classify".equals(tableInfo.getTableName()) || "commodity".equals(tableInfo.getTableName()) || "commodity_order".equals(tableInfo.getTableName()))
                 .collect(Collectors.groupingBy(TableInfo::getTableName));
         Set<String> tableNames = tableInfosMap.keySet();
         return tableNames.stream().map(tableName -> {
@@ -191,7 +204,6 @@ public class TableInfoController {
             return javaClassInfo;
         }).collect(Collectors.toList());
     }
-
 
     private void createCode(String path, String suffix, String templateName, List<JavaClassInfo> classInfoList, String packageName) throws IOException, TemplateException {
         Path dir = Paths.get(path);
